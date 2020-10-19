@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <h1 class="cartatitulo">
+        Carta de tragos
+        <span class="iconify" data-icon="la:glass-martini-alt-solid" data-inline="false"></span>
+    </h1>
+
+    <div id="tragos">
+
+        <label><input type="radio" name="filtro" id="todos" checked> Todos</label>
+        <label><input type="radio" name="filtro" id="conalcohol">Tragos con alcohol</label>
+        <label><input type="radio" name="filtro" id="sinalcohol">Tragos sin alcohol</label>
+
+        <div>
+            <h1 class="carrito">Carrito<span class="iconify" data-icon="ant-design:shopping-cart-outlined"
+                    data-inline="false"></span></h1>
+            <h1 id="cantidad"> </h1>
+        </div>
+
+        <div class="row">
+
+            <div class="card col-md-4 mt-5" style="width: 18rem; border: none; background-color: black">
+                <img src="./img/trago1.jfif" class="card-img-top imagenTrago" alt="..." />
+                <div class="card-body">
+                    <h5 class="card-title">Mojito <strong>$350</strong> </h5>
+                    <label for="">Cantidad</label>
+                    <input class="ingresoCantidad" type="number" id="trago1" value="0" />
+                    <a href="#" class="btn btn-dark" id="suma" onClick="sumartragos('trago1')">Añadir al carrito</a>
+                </div>
+            </div>
+            <div class="card col-md-4 mt-5" style="width: 18rem; border: none; background-color: black">
+                <img src="./img/trago2.jfif" class="card-img-top imagenTrago" alt="..." />
+                <div class="card-body">
+                    <h5 class="card-title">Limonada Caribeña <strong>$300</strong></h5>
+                    <label for="">Cantidad</label>
+                    <input class="ingresoCantidad" type="number" name="" id="trago2" value="0" />
+                    <a href="#" class="btn btn-dark" onClick="sumartragos('trago2')">Añadir al carrito</a>
+                </div>
+            </div>
+
+            <div class="card d-inline col-md-4 mt-5" style="width: 18rem; border: none; background-color: black">
+                <img src="./img/trago3.jfif" class="card-img-top imagenTrago" alt="..." />
+                <div class="card-body">
+                    <h5 class="card-title">Queen <strong>$300</strong></h5>
+                    <label for="">Cantidad</label>
+                    <input class="ingresoCantidad" type="number" name="" id="trago3" value="0" />
+                    <a href="#" class="btn btn-dark" onClick="sumartragos('trago3')">Añadir al carrito</a>
+                </div>
+            </div>
+            <div class="card d-inline col-md-4 mt-5" style="width: 18rem; border: none; background-color: black">
+                <img src="./img/trago4.jfif" class="card-img-top imagenTrago" alt="..." />
+                <div class="card-body">
+                    <h5 class="card-title">Gancia veraniego <strong>$300</strong></h5>
+                    <label for="">Cantidad</label>
+                    <input class="ingresoCantidad" type="number" name="" id="trago4" value="0" />
+                    <a href="#" class="btn btn-dark" onClick="sumartragos('trago4')">Añadir al carrito</a>
+                </div>
+            </div>
+            <div class="card d-inline col-md-4 mt-5" style="width: 18rem; border: none; background-color: black">
+                <img src="./img/trago5.jfif" class="card-img-top imagenTrago" alt="..." />
+                <div class="card-body">
+                    <h5 class="card-title">Vodka Tropical <strong>$450</strong></h5>
+                    <label for="">Cantidad</label>
+                    <input class="ingresoCantidad" type="number" name="" id="trago5" value="0"
+                        onclick="guardardatos('trago5')" />
+                    <a href="#" class="btn btn-dark" onClick="sumartragos('trago5')">Añadir al carrito</a>
+                </div>
+            </div>
+
+            <div class="card d-inline col-md-4 mt-5" style="width: 18rem; border: none; background-color: black">
+                <img src="./img/trago6.jfif" class="card-img-top imagenTrago" alt="..." />
+                <div class="card-body">
+                    <h5 class="card-title">Fernet intervenido <strong>$450</strong></h5>
+                    <label for="">Cantidad</label>
+                    <input class="ingresoCantidad" type="number" name="" id="trago6" value="0" />
+                    <a href="#" class="btn btn-dark" onClick="sumartragos('trago6')">Añadir al carrito</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/javascript.js"></script>
+</body>
+
+</html>
