@@ -1,61 +1,12 @@
 //json
-var listatragos = [{
-    "id": "trago1",
-    "nombre": "mojito",
-    "imagen": "./img/trago1.jfif",
-    "precio": 350,
-    "ingredientes": "lima,ron,menta,azucar",
-    "stock": 30,
-  },
-  {
-    "id": "trago2",
-    "nombre": "Limonada Caribeña",
-    "imagen": "./img/trago2.jfif",
-    "precio": 300,
-    "ingredientes": "limon, azucar, hojas de menta, vodka",
-    "stock": 30,
-  },
-  {
-    "id": "trago3",
-    "nombre": "Queen",
-    "imagen": "./img/trago3.jfif",
-    "precio": 300,
-    "ingredientes": "frutillas, aperol, azucar, ron",
-    "stock": 30,
-  },
-  {
-    "id": "trago4",
-    "nombre": "Gancia veraniego",
-    "imagen": "./img/trago4.jfif",
-    "precio": 300,
-    "ingredientes": "gancia, limon, soda, hielo",
-    "stock": 30,
-  },
-  {
-    "id": "trago5",
-    "nombre": "Vodka tropical",
-    "imagen": "./img/trago5.jfif",
-    "precio": 450,
-    "ingredientes": "vodka, rodajas de pomelo, limon, menta, azucar",
-    "stock": 30,
-  },
-  {
-    "id": "trago6",
-    "nombre": "Fernet intervenido",
-    "imagen": "./img/trago6.jfif",
-    "precio": 450,
-    "ingredientes": "fernet, cocacola, hielo, limas",
-    "stock": 30,
+
+function agregarHtml(nombre, precio, imagen, id, tieneAlcohol) {
+  console.log(`el producto "${nombre}" tiene alcohol? ${tieneAlcohol}`)
+  var claseAlcohol = 'sin_alcohol_clase';
+  if (tieneAlcohol == true) {
+    claseAlcohol = 'con_alcohol_clase';
   }
-]
-
-
-// var miNombre = "evee"
-// var ejemplo = `hola mi nombre es ${miNombre}`;
-// console.log(ejemplo)
-
-function agregarHtml(nombre, precio, imagen, id) {
-  var html = `<div class="card col-md-4 mt-5" style="width: 18rem; border: none; background-color: black">
+  var html = `<div class="card col-md-4 mt-5 ${claseAlcohol}" style="width: 18rem; border: none; background-color: black">
 <img src=${imagen} class="card-img-top imagenTrago" alt="..." />
 <div class="card-body">
     <h5 class="card-title">${nombre}<strong> $${precio}</strong> </h5>
@@ -67,17 +18,74 @@ function agregarHtml(nombre, precio, imagen, id) {
   return html;
 }
 
-for (var i = 0; i < listatragos.length; i++) {
-  var miProd = listatragos[i];
-  var htmlProd = agregarHtml(miProd.nombre, miProd.precio, miProd.imagen, miProd.id)
-  console.log("   y mi html es: " + htmlProd);
-  document.getElementById("listaProductos").innerHTML += htmlProd;
+//Jquery//
+
+var cantidadTragos = $("#cantidad");
+
+function mostrarTragos() {
+
+  var urlAPI = 'https://run.mocky.io/v3/cac6f690-55e5-40eb-9295-42bd3801940b';
+  console.log('Llamamos a la API: ', urlAPI);
+  $.ajax({
+    url: urlAPI,
+    method: 'GET'
+  }).then(function (respuestaApi) {
+    console.log('Datos ajax: ', respuestaApi);
+    var listatragos = respuestaApi.productos;
+
+    var listaProductos = $("#listaProductos");
+    for (var i = 0; i < listatragos.length; i++) {
+      var miProd = listatragos[i];
+      var htmlProd = agregarHtml(miProd.nombre, miProd.precio, miProd.imagen, miProd.id, miProd.tiene_alcohol);
+      listaProductos.html(listaProductos.html() + htmlProd);
+    }
+  });
+
 }
 
-
-function sumartragos(idinput) {
-  console.log("la cantidad de tragos pedidos del ", idinput)
-  var cantidadtragos = document.getElementById(idinput).value;
-  console.log('  La cantidad es: ', cantidadtragos);
+var listaCarrito = [];
+// precio, cantidad y producto nombre
+function sumartragos(idProducto) {
+  console.log("la cantidad de tragos pedidos del ", idProducto)
+  var cantidadtragos = document.getElementById(idProducto).value;
   document.getElementById("cantidad").innerHTML = cantidadtragos + " tragos seleccionados";
+  // buscar por idProducto el nombre y precio del producto en stock
+  var productoEncontrado = null;
+  for (var i = 0; i < listatragos.length; i++) {
+    var miProd = listatragos[i];
+    if (idProducto == miProd.id) {
+      productoEncontrado = miProd;
+    };
+  }
+  console.log(productoEncontrado.precio);
+  console.log(productoEncontrado.nombre);
+  console.log(cantidadtragos);
+  idProducto.innerHTML = productoEncontrado.precio;
+
+
+  //   // agregar el precio, cantidad y nombre prod a la lista de carrito
+  // listaCarrito.push({
+  //   precio: productoEncontrado.precio,
+  //   producto: productoEncontrado.nombre,
+  //   cantidad: cantidadtragos,
+  // })
+
 }
+
+
+$("#sinalcohol").click(function () {
+  $(".sin_alcohol_clase").fadeIn();
+  $(".con_alcohol_clase").fadeOut(1000);
+});
+
+$("#conalcohol").click(function () {
+  $(".sin_alcohol_clase").fadeOut(1000);
+  $(".con_alcohol_clase").fadeIn();
+});
+
+$("#todos").click(function () {
+  $(".sin_alcohol_clase").fadeIn();
+  $(".con_alcohol_clase").fadeIn();
+});
+
+mostrarTragos();
